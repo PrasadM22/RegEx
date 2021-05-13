@@ -3,8 +3,9 @@ import java.util.*;
 import java.util.regex.*;
 
 public class Registration {
+	static Scanner sc = new Scanner(System.in);
 public static void main(String[] args) {
-	Scanner sc = new Scanner(System.in);
+	
 	
 	System.out.println("Enter The first Name");
 	String Fname = sc.nextLine();

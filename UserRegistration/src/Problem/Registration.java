@@ -53,11 +53,11 @@ public static void main(String[] args) {
 		System.out.println("Invalid Number.Enter Valid Number");
 	}
 	
-	//Validate Password Rule-1 & Rule-2
+	//Validate Password Rule-1,Rule-2 & Rule-3
 	
 	System.out.println("Enter your Password");
 	String Password = sc.nextLine();
-	if(Pattern.matches("(?=.*[A-Z]).{8,20}$",Password))
+	if(Pattern.matches("(?=.*[0-9])(?=.*[A-Z]).{8,20}$",Password))
 	{
 		System.out.println("Password is Valid ");
 	}

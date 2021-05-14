@@ -52,6 +52,19 @@ public static void main(String[] args) {
 	{
 		System.out.println("Invalid Number.Enter Valid Number");
 	}
+	
+	//Validate Password Rule-1
+	
+	System.out.println("Enter your Password");
+	String Password = sc.nextLine();
+	if(Pattern.matches("[A-Za-z0-9]{8,20}",Password))
+	{
+		System.out.println("Password is Valid ");
+	}
+	else
+	{
+		System.out.println("Invalid Passsword.Enter Valid Password");
+	}
 }	
 }
 

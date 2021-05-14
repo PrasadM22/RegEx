@@ -65,6 +65,31 @@ public static void main(String[] args) {
 	{
 		System.out.println("Invalid Passsword.Enter Valid Password");
 	}
+	//Checking all Email's Sample Separately
+	ArrayList<String> emails = new ArrayList<String>();
+	//Valid Email's
+	emails.add("abc@yahoo.com");
+	emails.add("abc.100@yahoo.com");
+	emails.add("abc.100@yahoo.com");
+	emails.add("abc111@abc.com");
+	emails.add("abc-100@abc.net");
+	emails.add("abc.100@abc.com.au");
+	emails.add("abc@1.com");
+	emails.add("abc+100@gmail.com");
+	emails.add("abc@yahoo.com.com");
+	
+	//Invalid Email's
+	emails.add("abc@.yahoo.com");
+	emails.add("abc123@%*.com");
+	String regex="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
+	
+	Pattern pattern = Pattern.compile(regex);
+	
+	for(String mail : emails) {
+		Matcher matcher = pattern.matcher(mail);
+	    System.out.println(mail +" : "+ matcher.matches());
+	}
+	
 }	
 }
 

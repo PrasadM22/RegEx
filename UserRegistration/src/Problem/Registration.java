@@ -33,11 +33,24 @@ public static void main(String[] args) {
 	var email = sc.nextLine();
 	if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
 	{
-		System.out.println("Name is Valid email");
+		System.out.println("Email is Valid email");
 	}
 	else
 	{
 		System.out.println("Invalid email.Enter Valid Email");
+	}
+	
+	//Validate Mobile Number
+	System.out.println("Enter the Phone Number");
+	String Number = sc.nextLine();
+
+	if(Pattern.matches("^[0-9]{2}[\\s][0-9]{10}",Number))
+	{
+		System.out.println("Number is Valid Number");
+	}
+	else
+	{
+		System.out.println("Invalid Number.Enter Valid Number");
 	}
 }	
 }

@@ -28,8 +28,20 @@ public static void main(String[] args) {
 		System.out.println("Invalid Name.Enter proper Name");
 	}
 	
+	//Validate Email Address
+	System.out.println("Enter The Email");
+	var email = sc.nextLine();
+	if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
+	{
+		System.out.println("Name is Valid email");
+	}
+	else
+	{
+		System.out.println("Invalid email.Enter Valid Email");
+	}
+}	
 }
-}
+
 
 
 

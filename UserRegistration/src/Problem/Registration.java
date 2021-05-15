@@ -2,69 +2,54 @@ package Problem;
 import java.util.*;
 import java.util.regex.*;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 public class Registration {
 	static Scanner sc = new Scanner(System.in);
-public static void main(String[] args) {
-	System.out.println("Enter The first Name");
-	String Fname = sc.nextLine();
-	if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Fname))
+	//Validate First Name
+	public String CheckfirstName(String Fname)
 	{
-		System.out.println("Name is Valid");
-	}
-	else
-	{
-		System.out.println("Invalid Name. Enter proper Name");
-		
+		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Fname))
+		return "HAPPY";
+		else
+		return "SAD";
 	}
 	//Validate last name
-	System.out.println("Enter The last Name");
-	String Lname = sc.nextLine();
-	if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Lname))
+	public String ChecklastName(String Lname)
 	{
-		System.out.println("Name is Valid");
+		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Lname))
+		return "HAPPY";
+		else
+		return "SAD";
 	}
-	else
-	{
-		System.out.println("Invalid Name.Enter proper Name");
-	}
-	
 	//Validate Email Address
-	System.out.println("Enter The Email");
-	var email = sc.nextLine();
-	if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
+	public String Checkemail(String email)
 	{
-		System.out.println("Email is Valid email");
+		if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
+		return "HAPPY";
+		else
+		return "SAD";
 	}
-	else
-	{
-		System.out.println("Invalid email.Enter Valid Email");
-	}
-	
 	//Validate Mobile Number
-	System.out.println("Enter the Phone Number");
-	String Number = sc.nextLine();
-
-	if(Pattern.matches("^[0-9]{2}[\\s][0-9]{10}",Number))
+	public String CheckPhoneNumber(String Number)
 	{
-		System.out.println("Number is Valid Number");
+		if(Pattern.matches("^[0-9]{2}[\\s][0-9]{10}",Number))
+		return "HAPPY";
+		else
+		return "SAD";
 	}
-	else
-	{
-		System.out.println("Invalid Number.Enter Valid Number");
-	}
-	
 	//Validate Password Rule-1, Rule-2, Rule-3 & Rule-4
+	public String CheckPassword(String Password)
+	{
+		if(Pattern.matches("(?=.*[$#@!%^&*])(?=.*[0-9])(?=.*[A-Z]).{8,20}$",Password))
+		return "HAPPY";
+		else
+		return "SAD";
+	}
 	
-	System.out.println("Enter your Password");
-	String Password = sc.nextLine();
-	if(Pattern.matches("(?=.*[$#@!%^&*])(?=.*[0-9])(?=.*[A-Z]).{8,20}$",Password))
-	{
-		System.out.println("Password is Valid ");
-	}
-	else
-	{
-		System.out.println("Invalid Passsword.Enter Valid Password");
-	}
+public static void main(String[] args) {
+
 	//Checking all Email's Sample Separately
 	ArrayList<String> emails = new ArrayList<String>();
 	//Valid Email's
@@ -81,6 +66,7 @@ public static void main(String[] args) {
 	//Invalid Email's
 	emails.add("abc@.yahoo.com");
 	emails.add("abc123@%*.com");
+	
 	String regex="^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
 	
 	Pattern pattern = Pattern.compile(regex);
@@ -89,8 +75,33 @@ public static void main(String[] args) {
 		Matcher matcher = pattern.matcher(mail);
 	    System.out.println(mail +" : "+ matcher.matches());
 	}
-	
-}	
+ 
+}
+@Test
+public void CheckfirstName()
+{
+	 Assert.assertEquals("HAPPY",CheckfirstName("Raghav")); 	 
+}
+@Test
+public void ChecklastName()
+{
+	 Assert.assertEquals("HAPPY",ChecklastName("Shetty")); 	 
+}
+@Test
+public void Checkemail()
+{
+	 Assert.assertEquals("HAPPY",Checkemail("abc.xyz@yahoo.com")); 	 
+}
+@Test
+public void CheckPhoneNumber()
+{
+	 Assert.assertEquals("HAPPY",CheckPhoneNumber("91 5647962543")); 	 
+}
+@Test
+public void CheckPasswor()
+{
+	 Assert.assertEquals("HAPPY",CheckPassword("Abcd@321")); 	 
+}
 }
 
 

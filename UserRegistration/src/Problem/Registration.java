@@ -4,7 +4,10 @@ import java.util.regex.*;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
+@RunWith(Parameterized.class)
 public class Registration {
 	static Scanner sc = new Scanner(System.in);
 	//Validate First Name
@@ -98,12 +101,42 @@ public void CheckPhoneNumber()
 	 Assert.assertEquals("HAPPY",CheckPhoneNumber("91 5647962543")); 	 
 }
 @Test
-public void CheckPasswor()
+public void CheckPassword()
 {
 	 Assert.assertEquals("HAPPY",CheckPassword("Abcd@321")); 	 
 }
+
+//Parameterized Test cases
+
+private String expected;
+private String email;
+public Registration(String expected,String email)
+{
+	this.expected=expected;
+	this.email= email;
 }
 
+@Parameterized.Parameters
+public static Collection<Object[]> input() {
+    return Arrays.asList(new Object[][] { 
+     { "HAPPY", "abc@yahoo.com" },{ "SAD", "abc@.com.my" },
+     { "HAPPY", "abc-100@com" }, { "SAD",  "abc123@gmail.a" },
+     { "HAPPY", "abc.100@yahoo.com"},{ "SAD", "abc123@com" },
+     { "HAPPY", "abc111@abc.com" },{ "SAD" , "abc()*@gmail.com" },
+     { "HAPPY", "abc-100@abc.net" },{ "SAD", "abc@%*.com" },
+     { "HAPPY", "abc.100@abc.com.au" },{ "SAD", "abc..2002@gmail.com" },
+     { "HAPPY",  "abc@1.com" },    { "SAD", "abc@gmail.com.1a" },
+     { "HAPPY",  "abc+100@gmail.com" }
+    });
+}
+
+@Test
+public void testemail()
+{
+	Assert.assertEquals(expected,Checkemail(email));
+}
+	
+}
 
 
 

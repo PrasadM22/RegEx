@@ -11,47 +11,64 @@ import org.junit.runners.Parameterized;
 public class Registration {
 	static Scanner sc = new Scanner(System.in);
 	//Validate First Name
-	public String CheckfirstName(String Fname)
+	public static void CheckfirstName(String Fname) throws InvalidDetailException
 	{
 		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Fname))
-		return "HAPPY";
-		else
-		return "SAD";
+		System.out.println("First Name Validate");
+		else 
+		throw new InvalidDetailException("Invalid  First Name Exception");
 	}
 	//Validate last name
-	public String ChecklastName(String Lname)
+	public static void ChecklastName(String Lname) throws InvalidDetailException
 	{
 		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Lname))
-		return "HAPPY";
+		System.out.println("Last Name Validate");
 		else
-		return "SAD";
+		throw new InvalidDetailException("Invalid Last Name Exception");
 	}
 	//Validate Email Address
-	public String Checkemail(String email)
+	public static void Checkemail(String email) throws InvalidDetailException
 	{
 		if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
-		return "HAPPY";
+			System.out.println("email Validate");
 		else
-		return "SAD";
-	}
-	//Validate Mobile Number
-	public String CheckPhoneNumber(String Number)
-	{
-		if(Pattern.matches("^[0-9]{2}[\\s][0-9]{10}",Number))
-		return "HAPPY";
-		else
-		return "SAD";
-	}
-	//Validate Password Rule-1, Rule-2, Rule-3 & Rule-4
-	public String CheckPassword(String Password)
-	{
-		if(Pattern.matches("(?=.*[$#@!%^&*])(?=.*[0-9])(?=.*[A-Z]).{8,20}$",Password))
-		return "HAPPY";
-		else
-		return "SAD";
+			throw new InvalidDetailException("Invalid Email Exception");
 	}
 	
-public static void main(String[] args) {
+	//Validate Mobile Number
+	public static void CheckPhoneNumber(String Number) throws InvalidDetailException
+	{
+		if(Pattern.matches("^[0-9]{2}[\\s][0-9]{10}",Number))
+		System.out.println("Phone Number Validate");
+		else
+			throw new InvalidDetailException("Invalid Phone Number Exception");
+	}
+	//Validate Password Rule-1, Rule-2, Rule-3 & Rule-4
+	public static void CheckPassword(String Password) throws InvalidDetailException
+	{
+		if(Pattern.matches("(?=.*[$#@!%^&*])(?=.*[0-9])(?=.*[A-Z]).{8,20}$",Password))
+		System.out.println("Password Validate");
+		else
+			throw new InvalidDetailException("Invalid Password Exception");
+	}
+	
+public static void main(String[] args){
+	
+	try {CheckfirstName("raghave");}catch(InvalidDetailException e){
+		System.out.println(e.getMessage());
+		}
+	try {ChecklastName("shetty");}catch(InvalidDetailException e){
+		System.out.println(e.getMessage());
+		}
+	try {Checkemail("abc.xyz@yahoo.com");}catch(InvalidDetailException e){
+		System.out.println(e.getMessage());
+		}
+	try {CheckPhoneNumber("9656478569");}catch(InvalidDetailException e){
+		System.out.println(e.getMessage());
+		}
+	try {CheckPassword("Abcd@321");}catch(InvalidDetailException e){
+		System.out.println(e.getMessage());
+		}
 
 	//Checking all Email's Sample Separately
 	ArrayList<String> emails = new ArrayList<String>();
@@ -79,31 +96,6 @@ public static void main(String[] args) {
 	    System.out.println(mail +" : "+ matcher.matches());
 	}
  
-}
-@Test
-public void CheckfirstName()
-{
-	 Assert.assertEquals("HAPPY",CheckfirstName("Raghav")); 	 
-}
-@Test
-public void ChecklastName()
-{
-	 Assert.assertEquals("HAPPY",ChecklastName("Shetty")); 	 
-}
-@Test
-public void Checkemail()
-{
-	 Assert.assertEquals("HAPPY",Checkemail("abc.xyz@yahoo.com")); 	 
-}
-@Test
-public void CheckPhoneNumber()
-{
-	 Assert.assertEquals("HAPPY",CheckPhoneNumber("91 5647962543")); 	 
-}
-@Test
-public void CheckPassword()
-{
-	 Assert.assertEquals("HAPPY",CheckPassword("Abcd@321")); 	 
 }
 
 //Parameterized Test cases
@@ -133,7 +125,14 @@ public static Collection<Object[]> input() {
 @Test
 public void testemail()
 {
-	Assert.assertEquals(expected,Checkemail(email));
+	Assert.assertEquals(expected,Checkmail(email));
+}
+public  String Checkmail(String email) 
+{
+	if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
+		return "HAPPY";
+	else
+		return "SAD";
 }
 	
 }

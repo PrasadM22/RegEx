@@ -7,69 +7,100 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
+interface ValidateUser{
+	void CheckUser(String str);
+}
+
 @RunWith(Parameterized.class)
 public class Registration {
 	static Scanner sc = new Scanner(System.in);
 	//Validate First Name
-	public static void CheckfirstName(String Fname) throws InvalidDetailException
+	public String CheckfirstName(String Fname) 
 	{
 		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Fname))
-		System.out.println("First Name Validate");
+		return "HAPPY";
 		else 
-		throw new InvalidDetailException("Invalid  First Name Exception");
+		return "SAD";
 	}
 	//Validate last name
-	public static void ChecklastName(String Lname) throws InvalidDetailException
+	public String ChecklastName(String Lname) 
 	{
 		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Lname))
-		System.out.println("Last Name Validate");
-		else
-		throw new InvalidDetailException("Invalid Last Name Exception");
+		return "HAPPY";
+		else 
+		return "SAD";
 	}
 	//Validate Email Address
-	public static void Checkemail(String email) throws InvalidDetailException
+	public String Checkemail(String email) 
 	{
 		if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
-			System.out.println("email Validate");
-		else
-			throw new InvalidDetailException("Invalid Email Exception");
+		return "HAPPY";
+		else 
+		return "SAD";
 	}
 	
 	//Validate Mobile Number
-	public static void CheckPhoneNumber(String Number) throws InvalidDetailException
+	public String CheckPhoneNumber(String Number) 
 	{
 		if(Pattern.matches("^[0-9]{2}[\\s][0-9]{10}",Number))
-		System.out.println("Phone Number Validate");
-		else
-			throw new InvalidDetailException("Invalid Phone Number Exception");
+		return "HAPPY";
+		else 
+		return "SAD";
 	}
 	//Validate Password Rule-1, Rule-2, Rule-3 & Rule-4
-	public static void CheckPassword(String Password) throws InvalidDetailException
+	public String CheckPassword(String Password)
 	{
 		if(Pattern.matches("(?=.*[$#@!%^&*])(?=.*[0-9])(?=.*[A-Z]).{8,20}$",Password))
-		System.out.println("Password Validate");
-		else
-			throw new InvalidDetailException("Invalid Password Exception");
+		return "HAPPY";
+		else 
+		return "SAD";
 	}
 	
 public static void main(String[] args){
+	//Lambda expression for Validate User First Name
+	ValidateUser first =(String Fname) -> {
+		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Fname))
+			System.out.println("First Name Validate");
+			else 
+			System.out.println("Invalid Name, Try again");
+	}; 
+	//Lambda expression for Validate User Last Name
+	ValidateUser last =(String Lname) -> {
+		if(Pattern.matches("[A-Z]{1}[a-z]{2,}",Lname))
+			System.out.println("Last Name Validate");
+			else
+				System.out.println("Invalid Last Name, Try again");
+	};
+	//Lambda expression for Validate User Email
+	ValidateUser Email =(String email) -> {
+		if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
+			System.out.println("email Validate");
+		else
+			System.out.println("Invalid Email, Try again");
+	};
+	//Lambda expression for Validate User Phone Number
+	ValidateUser Num =(String Number) -> {
+		if(Pattern.matches("^[0-9]{2}[\\s][0-9]{10}",Number))
+			System.out.println("Phone Number Validate");
+			else
+				System.out.println("Invalid Number, Try Again");
+	};
+	//Lambda expression for Validate User Password
+	ValidateUser Password =(String pass) -> {
+		if(Pattern.matches("(?=.*[$#@!%^&*])(?=.*[0-9])(?=.*[A-Z]).{8,20}$",pass))
+			System.out.println("Password Validate");
+			else
+			System.out.println("Invalid Password Try Again");
+	};
 	
-	try {CheckfirstName("raghave");}catch(InvalidDetailException e){
-		System.out.println(e.getMessage());
-		}
-	try {ChecklastName("shetty");}catch(InvalidDetailException e){
-		System.out.println(e.getMessage());
-		}
-	try {Checkemail("abc.xyz@yahoo.com");}catch(InvalidDetailException e){
-		System.out.println(e.getMessage());
-		}
-	try {CheckPhoneNumber("9656478569");}catch(InvalidDetailException e){
-		System.out.println(e.getMessage());
-		}
-	try {CheckPassword("Abcd@321");}catch(InvalidDetailException e){
-		System.out.println(e.getMessage());
-		}
-
+	first.CheckUser("Raghav");
+	last.CheckUser("Shettay");
+	Email.CheckUser("abc@.gmail.com");
+	Num.CheckUser("91 8998564522");
+	Password.CheckUser("Abcd@321");
+	
+	
+	
 	//Checking all Email's Sample Separately
 	ArrayList<String> emails = new ArrayList<String>();
 	//Valid Email's
@@ -97,7 +128,31 @@ public static void main(String[] args){
 	}
  
 }
-
+@Test
+public void CheckfirstName()
+{
+	 Assert.assertEquals("HAPPY",CheckfirstName("Raghav")); 	 
+}
+@Test
+public void ChecklastName()
+{
+	 Assert.assertEquals("HAPPY",ChecklastName("Shetty")); 	 
+}
+@Test
+public void Checkemail()
+{
+	 Assert.assertEquals("HAPPY",Checkemail("abc.xyz@yahoo.com")); 	 
+}
+@Test
+public void CheckPhoneNumber()
+{
+	 Assert.assertEquals("HAPPY",CheckPhoneNumber("91 5647962543")); 	 
+}
+@Test
+public void CheckPasswor()
+{
+	 Assert.assertEquals("HAPPY",CheckPassword("Abcd@321")); 	 
+}
 //Parameterized Test cases
 
 private String expected;
@@ -125,16 +180,8 @@ public static Collection<Object[]> input() {
 @Test
 public void testemail()
 {
-	Assert.assertEquals(expected,Checkmail(email));
-}
-public  String Checkmail(String email) 
-{
-	if(Pattern.matches("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$",email))
-		return "HAPPY";
-	else
-		return "SAD";
-}
-	
+	Assert.assertEquals(expected,Checkemail(email));
+}	
 }
 
 
